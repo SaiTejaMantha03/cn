@@ -1,3 +1,5 @@
+# Commands to run--> ns wireless.tcl,nam simple-out.nam
+
 # ============================
 # WIRELESS NETWORK SIMULATION
 # Using TCP and FTP traffic
