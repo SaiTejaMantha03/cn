@@ -1,4 +1,4 @@
-# Selective-Repeat-ARQ.tcl
+# Selective-Repeat-ARQ.tcl (SACK-enabled TCP)
 
 # Create simulator and trace file
 set ns [new Simulator]
@@ -25,15 +25,16 @@ $ns duplex-link $n0 $n1 1Mb 10ms DropTail
 $ns duplex-link $n1 $n2 1Mb 10ms DropTail
 $ns duplex-link $n2 $n3 1Mb 10ms DropTail
 
-# Configure TCP (Selective Repeat behavior)
-Agent/TCP set nam_tracevar_ true
-set tcp [new Agent/TCP]
+# Configure TCP (SACK-enabled for selective retransmission)
+# Use the SACK sender and a SACK-aware sink (receiver)
+set tcp [new Agent/TCP/Sack1]
+# optional tuning
 $tcp set windowInit_ 10
 $tcp set maxcwnd_ 10
 $ns attach-agent $n0 $tcp
 
-# TCP Sink
-set sink [new Agent/TCPSink]
+# TCP Sink (SACK-capable)
+set sink [new Agent/TCPSink/Sack1]
 $ns attach-agent $n3 $sink
 $ns connect $tcp $sink
 
@@ -50,4 +51,3 @@ $ns at 5.0 "finish"
 
 # Run simulation
 $ns run
-
