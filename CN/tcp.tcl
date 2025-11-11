@@ -47,11 +47,9 @@ $tcp1 set window_ 2
 # Create FTP applications
 set ftp0 [new Application/FTP]
 $ftp0 attach-agent $tcp0
-$ftp0 set type_ FTP
 
 set ftp1 [new Application/FTP]
 $ftp1 attach-agent $tcp1
-$ftp1 set type_ FTP
 
 # Start and stop events
 $ns at 0.1 "$ftp0 start"
